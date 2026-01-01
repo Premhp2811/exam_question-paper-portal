@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard - {{ branch_name }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 30px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .navbar h1 {
+            color: #667eea;
+            font-size: 24px;
+        }
+        .logout-btn {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .logout-btn:hover {
+            background: #5568d3;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .welcome-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .welcome-card h2 {
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        .branch-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .welcome-card p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .action-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        .action-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
+        }
+        .action-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+        .action-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .action-desc {
+            font-size: 14px;
+            color: #666;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .welcome-card, .action-card {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        .action-card:nth-child(1) { animation-delay: 0.1s; }
+        .action-card:nth-child(2) { animation-delay: 0.2s; }
+        .action-card:nth-child(3) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>📚 Question Papers Hub - Teacher Panel</h1>
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </div>
+
+    <div class="container">
+        <div class="welcome-card">
+            <h2>👨‍🏫 Welcome, {{ teacher_name }}!</h2>
+            <div class="branch-badge">{{ branch_name }}</div>
+            <p>Manage question papers for your department</p>
+        </div>
+
+        <div class="actions-grid">
+            <a href="{% url 'select_semester_upload' branch=branch %}" class="action-card">
+                <div class="action-icon">📤</div>
+                <div class="action-title">Upload Papers</div>
+                <div class="action-desc">Upload question papers, notes, syllabus, and model papers</div>
+            </a>
+
+            <a href="{% url 'manage_papers' branch=branch %}" class="action-card">
+                <div class="action-icon">📝</div>
+                <div class="action-title">Manage Papers</div>
+                <div class="action-desc">View, edit, or delete your uploaded papers</div>
+            </a>
+
+            <a href="#" class="action-card">
+                <div class="action-icon">📊</div>
+                <div class="action-title">View Statistics</div>
+                <div class="action-desc">See download stats and analytics</div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

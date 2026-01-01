@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internships - {{ branch_name }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 30px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .navbar h1 {
+            color: #667eea;
+            font-size: 24px;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .back-btn, .logout-btn {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .back-btn {
+            background: #6c757d;
+        }
+        .back-btn:hover {
+            background: #5a6268;
+        }
+        .logout-btn:hover {
+            background: #5568d3;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        .header h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .branch-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .info-banner {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .info-banner h3 {
+            color: #667eea;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        .info-banner p {
+            color: #666;
+            font-size: 16px;
+        }
+        .internship-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 25px;
+        }
+        .internship-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .internship-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+        .internship-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
+        }
+        .company-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .company-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .company-info h3 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .company-info .role {
+            color: #667eea;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .certificate-badge {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #333;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .internship-details {
+            margin-bottom: 15px;
+        }
+        .detail-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+            color: #666;
+            font-size: 13px;
+        }
+        .detail-row .icon {
+            font-size: 16px;
+            min-width: 20px;
+        }
+        .detail-row strong {
+            color: #333;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+        .tag {
+            background: #f0f4ff;
+            color: #667eea;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+        .apply-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .apply-btn:hover {
+            transform: scale(1.05);
+        }
+        .diploma-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #4caf50;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .no-internships {
+            background: white;
+            padding: 60px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .no-internships-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        .no-internships h3 {
+            color: #667eea;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .no-internships p {
+            color: #666;
+            font-size: 16px;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .internship-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>📚 Question Papers Hub</h1>
+        <div class="nav-buttons">
+            <a href="{% url 'semester_selection' branch=branch %}" class="back-btn">← Back</a>
+            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="branch-badge">{{ branch_name }}</div>
+            <h2>💼 Internship Opportunities</h2>
+        </div>
+
+        <div class="info-banner">
+            <h3>🎓 Certificate Programs for Diploma Students!</h3>
+            <p>These companies offer internship programs specially curated for diploma students in {{ branch_name }}</p>
+        </div>
+
+        {% if internships %}
+        <div class="internship-grid">
+            {% for internship in internships %}
+            <div class="internship-card">
+                <span class="diploma-badge">✅ Diploma Accepted</span>
+                <div class="company-header">
+                    <div class="company-logo">{{ internship.logo_initials }}</div>
+                    <div class="company-info">
+                        <h3>{{ internship.company_name }}</h3>
+                        <div class="role">{{ internship.role }}</div>
+                    </div>
+                </div>
+
+                <div class="certificate-badge">🎓 Certificate Program</div>
+
+                <div class="internship-details">
+                    <div class="detail-row">
+                        <span class="icon">📍</span>
+                        <span>{{ internship.location }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="icon">⏱️</span>
+                        <span><strong>Duration:</strong> {{ internship.duration }}</span>
+                    </div>
+                    {% if internship.description %}
+                    <div class="detail-row">
+                        <span class="icon">📝</span>
+                        <span>{{ internship.description|truncatewords:15 }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="tags">
+                    {% for skill in internship.skills %}
+                    <span class="tag">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="actions">
+                    <a href="{{ internship.apply_link }}" class="apply-btn" target="_blank">Apply Now →</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-internships">
+            <div class="no-internships-icon">💼</div>
+            <h3>No Internships Available</h3>
+            <p>New internship opportunities will be posted soon for {{ branch_name }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

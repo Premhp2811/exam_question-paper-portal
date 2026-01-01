@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Papers - {{ branch_name }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 30px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .navbar h1 {
+            color: #667eea;
+            font-size: 24px;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .back-btn, .logout-btn {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .back-btn {
+            background: #6c757d;
+        }
+        .back-btn:hover {
+            background: #5a6268;
+        }
+        .logout-btn:hover {
+            background: #5568d3;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        .header h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .branch-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .papers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        .paper-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .paper-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
+        }
+        .paper-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        .paper-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .paper-info {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .paper-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        .paper-year {
+            color: #667eea;
+            font-weight: 600;
+        }
+        .download-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: transform 0.2s;
+        }
+        .download-btn:hover {
+            transform: scale(1.05);
+        }
+        .doc-type-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .no-papers {
+            background: white;
+            padding: 60px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .no-papers-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        .no-papers h3 {
+            color: #667eea;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .no-papers p {
+            color: #666;
+            font-size: 16px;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .paper-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>📚 Question Papers Hub</h1>
+        <div class="nav-buttons">
+            <a href="{% url 'student_upload_verify' branch=branch semester=semester %}" class="back-btn" style="background: #28a745;">📤 Upload</a>
+            <a href="{% url 'semester_selection' branch=branch %}" class="back-btn">← Back</a>
+            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="branch-badge">{{ branch_name }} - Semester {{ semester }}</div>
+            <h2>📄 Available Question Papers</h2>
+        </div>
+
+        {% if papers %}
+        <div class="papers-grid">
+            {% for paper in papers %}
+            <div class="paper-card">
+                {% if paper.doc_type == 'notes' %}
+                    <div class="paper-icon">📓</div>
+                {% elif paper.doc_type == 'syllabus' %}
+                    <div class="paper-icon">📋</div>
+                {% elif paper.doc_type == 'midterm' %}
+                    <div class="paper-icon">📝</div>
+                {% elif paper.doc_type == 'model' %}
+                    <div class="paper-icon">📄</div>
+                {% else %}
+                    <div class="paper-icon">📄</div>
+                {% endif %}
+                
+                <div class="doc-type-badge">
+                    {{ paper.get_doc_type_display }}
+                </div>
+                
+                <div class="paper-title">{{ paper.title }}</div>
+                <div class="paper-info">📚 Subject: {{ paper.subject }}</div>
+                <div class="paper-info">👨‍🏫 Uploaded by: {{ paper.uploaded_by|title }}</div>
+                
+                <div class="paper-meta">
+                    <span class="paper-year">Year: {{ paper.year }}</span>
+                    <a href="{{ paper.file.url }}" class="download-btn" download>⬇️ Download</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-papers">
+            <div class="no-papers-icon">📭</div>
+            <h3>No Papers Available Yet</h3>
+            <p>Question papers for this semester haven't been uploaded yet.</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

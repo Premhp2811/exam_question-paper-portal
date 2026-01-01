@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Role - Question Papers Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+        .role-cards {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .role-card {
+            flex: 1;
+            padding: 30px 20px;
+            border: 3px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #333;
+        }
+        .role-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+        .role-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+        .role-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .role-desc {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Question Papers Hub</h1>
+        <p class="subtitle">Select your role to continue</p>
+        
+        <div class="role-cards">
+            <a href="{% url 'student_login' %}" class="role-card">
+                <div class="role-icon">🎓</div>
+                <div class="role-title">Student</div>
+                <div class="role-desc">Access question papers via email OTP</div>
+            </a>
+            
+            <a href="{% url 'college_selection' %}" class="role-card">
+                <div class="role-icon">👨‍🏫</div>
+                <div class="role-title">Teacher</div>
+                <div class="role-desc">Upload & manage question papers</div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

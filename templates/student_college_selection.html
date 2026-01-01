@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select College - Question Papers Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+        .college-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .college-card {
+            padding: 40px 20px;
+            border: 3px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #333;
+            position: relative;
+            overflow: hidden;
+        }
+        .college-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .college-card:hover::before {
+            transform: scaleX(1);
+        }
+        .college-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        .college-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+        .college-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #667eea;
+        }
+        .nav-buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .logout-btn {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .logout-btn:hover {
+            background: #5568d3;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .college-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        .college-card:nth-child(1) { animation-delay: 0.1s; }
+        .college-card:nth-child(2) { animation-delay: 0.2s; }
+        .college-card:nth-child(3) { animation-delay: 0.3s; }
+        .college-card:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏛️ Select Your College</h1>
+        <p class="subtitle">Choose your college to view question papers</p>
+        
+        <div class="college-grid">
+            <a href="{% url 'student_select_college' college='meip' %}" class="college-card">
+                <div class="college-icon">🏫</div>
+                <div class="college-name">MEIP</div>
+            </a>
+
+            <a href="{% url 'student_select_college' college='pvp' %}" class="college-card">
+                <div class="college-icon">🏫</div>
+                <div class="college-name">PVP</div>
+            </a>
+
+            <a href="{% url 'student_select_college' college='sjp' %}" class="college-card">
+                <div class="college-icon">🏫</div>
+                <div class="college-name">SJP</div>
+            </a>
+
+            <a href="{% url 'student_select_college' college='rrp' %}" class="college-card">
+                <div class="college-icon">🏫</div>
+                <div class="college-name">RRP</div>
+            </a>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+        </div>
+    </div>
+</body>
+</html>

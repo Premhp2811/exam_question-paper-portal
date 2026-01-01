@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Semester - Question Papers Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 30px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .navbar h1 {
+            color: #667eea;
+            font-size: 24px;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .back-btn, .logout-btn {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .back-btn {
+            background: #6c757d;
+        }
+        .back-btn:hover {
+            background: #5a6268;
+        }
+        .logout-btn:hover {
+            background: #5568d3;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        .branch-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .header h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        .semester-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+        .semester-card {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .semester-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .semester-card:hover::before {
+            opacity: 0.1;
+        }
+        .semester-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+        .semester-number {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .semester-text {
+            font-size: 18px;
+            color: #666;
+            font-weight: 600;
+            position: relative;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .semester-card {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        .semester-card:nth-child(1) { animation-delay: 0.1s; }
+        .semester-card:nth-child(2) { animation-delay: 0.2s; }
+        .semester-card:nth-child(3) { animation-delay: 0.3s; }
+        .semester-card:nth-child(4) { animation-delay: 0.4s; }
+        .semester-card:nth-child(5) { animation-delay: 0.5s; }
+        .semester-card:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>📚 Question Papers Hub</h1>
+        <div class="nav-buttons">
+            <a href="{% url 'branch_selection' %}" class="back-btn">← Back</a>
+            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="branch-badge">{{ branch_name }}</div>
+            <h2>📚 Select Semester</h2>
+            <p>Choose your semester to view question papers</p>
+        </div>
+
+        <div class="semester-grid">
+            <a href="{% url 'view_notes' branch=branch semester='1' %}" class="semester-card">
+                <div class="semester-number">1</div>
+                <div class="semester-text">First Semester</div>
+            </a>
+
+            <a href="{% url 'view_notes' branch=branch semester='2' %}" class="semester-card">
+                <div class="semester-number">2</div>
+                <div class="semester-text">Second Semester</div>
+            </a>
+
+            <a href="{% url 'view_notes' branch=branch semester='3' %}" class="semester-card">
+                <div class="semester-number">3</div>
+                <div class="semester-text">Third Semester</div>
+            </a>
+
+            <a href="{% url 'view_notes' branch=branch semester='4' %}" class="semester-card">
+                <div class="semester-number">4</div>
+                <div class="semester-text">Fourth Semester</div>
+            </a>
+
+            <a href="{% url 'view_notes' branch=branch semester='5' %}" class="semester-card">
+                <div class="semester-number">5</div>
+                <div class="semester-text">Fifth Semester</div>
+            </a>
+
+            <a href="{% url 'view_notes' branch=branch semester='6' %}" class="semester-card">
+                <div class="semester-number">6</div>
+                <div class="semester-text">Sixth Semester</div>
+            </a>
+        </div>
+
+        {% if branch == 'cse' or branch == 'ist' or branch == 'mech' or branch == 'civil' or branch == 'eee' or branch == 'ece' or branch == 'auto' or branch == 'ice' %}
+        <div style="margin-top: 40px; text-align: center;">
+            <a href="{% url 'internships' branch=branch %}" style="display: inline-block; background: linear-gradient(135deg, #ffd700, #ffed4e); color: #333; padding: 20px 40px; border-radius: 15px; text-decoration: none; font-weight: 700; font-size: 20px; box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4); transition: all 0.3s;">
+                💼 View Internship Opportunities
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

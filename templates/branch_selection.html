@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Branch - Question Papers Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 30px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .navbar h1 {
+            color: #667eea;
+            font-size: 24px;
+        }
+        .logout-btn {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .logout-btn:hover {
+            background: #5568d3;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        .header h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        .branches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+        }
+        .branch-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .branch-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .branch-card:hover::before {
+            transform: scaleX(1);
+        }
+        .branch-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
+        }
+        .branch-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .branch-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .branch-code {
+            font-size: 14px;
+            color: #667eea;
+            font-weight: 600;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .branch-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        .branch-card:nth-child(1) { animation-delay: 0.1s; }
+        .branch-card:nth-child(2) { animation-delay: 0.2s; }
+        .branch-card:nth-child(3) { animation-delay: 0.3s; }
+        .branch-card:nth-child(4) { animation-delay: 0.4s; }
+        .branch-card:nth-child(5) { animation-delay: 0.5s; }
+        .branch-card:nth-child(6) { animation-delay: 0.6s; }
+        .branch-card:nth-child(7) { animation-delay: 0.7s; }
+        .branch-card:nth-child(8) { animation-delay: 0.8s; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>📚 Question Papers Hub</h1>
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h2>🎓 Select Your Branch</h2>
+            <p>Choose your engineering department to continue</p>
+        </div>
+
+        <div class="branches-grid">
+            <a href="{% url 'semester_selection' branch='cse' %}" class="branch-card">
+                <span class="branch-icon">💻</span>
+                <div class="branch-name">Computer Science & Engineering</div>
+                <div class="branch-code">CSE</div>
+            </a>
+
+            <a href="{% url 'semester_selection' branch='civil' %}" class="branch-card">
+                <span class="branch-icon">🏗️</span>
+                <div class="branch-name">Civil Engineering</div>
+                <div class="branch-code">CIVIL</div>
+            </a>
+
+            <a href="{% url 'semester_selection' branch='auto' %}" class="branch-card">
+                <span class="branch-icon">🚗</span>
+                <div class="branch-name">Automobile Engineering</div>
+                <div class="branch-code">AUTO</div>
+            </a>
+
+            <a href="{% url 'semester_selection' branch='eee' %}" class="branch-card">
+                <span class="branch-icon">⚡</span>
+                <div class="branch-name">Electrical & Electronics Engineering</div>
+                <div class="branch-code">EEE</div>
+            </a>
+
+            <a href="{% url 'semester_selection' branch='ece' %}" class="branch-card">
+                <span class="branch-icon">📡</span>
+                <div class="branch-name">Electronics & Communication Engineering</div>
+                <div class="branch-code">ECE</div>
+            </a>
+
+            <a href="{% url 'semester_selection' branch='ist' %}" class="branch-card">
+                <span class="branch-icon">🌐</span>
+                <div class="branch-name">Information Science & Technology</div>
+                <div class="branch-code">IST</div>
+            </a>
+
+            <a href="{% url 'semester_selection' branch='ice' %}" class="branch-card">
+                <span class="branch-icon">🎛️</span>
+                <div class="branch-name">Instrumentation & Control Engineering</div>
+                <div class="branch-code">ICE</div>
+            </a>
+
+            <a href="{% url 'semester_selection' branch='mech' %}" class="branch-card">
+                <span class="branch-icon">⚙️</span>
+                <div class="branch-name">Mechanical Engineering</div>
+                <div class="branch-code">MECH</div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
