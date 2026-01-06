@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}Question Paper Hub{% endblock %}</title>
+
+  <!-- Firebase config -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyByYWAZUh08K0M9iF4XFEy_VhyqeHHMGyw",
+      authDomain: "paper-management-19ecb.firebaseapp.com",
+      projectId: "paper-management-19ecb",
+      storageBucket: "paper-management-19ecb.firebasestorage.app",
+      messagingSenderId: "280396369130",
+      appId: "1:280396369130:web:4b65affb6fa40f68a85b93",
+      measurementId: "G-P5MXZLBVEJ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+</head>
+
+<body>
+  {% block content %}{% endblock %}
+</body>
+</html>

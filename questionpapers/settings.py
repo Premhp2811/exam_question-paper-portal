@@ -75,17 +75,15 @@ WSGI_APPLICATION = 'questionpapers.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'questionpapers_db',
-        'USER': 'django_user',      # or 'root'
-        'PASSWORD': 'StrongPassword123',
+        'USER': 'django_user',
+        'PASSWORD': 'Different@123',
         'HOST': 'localhost',
-        'PORT': '3307',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+        'PORT': '5432',
     }
 }
+
 
 
 # Password validation
